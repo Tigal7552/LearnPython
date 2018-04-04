@@ -53,20 +53,22 @@ def get_named_kw_args(fn):
 	return tuple(args)
 
 def has_named_kw_args(fn):
+	params = inspect.signature(fn).parameters
 	for name, param in params.items():
-	if param.kind == inspect.Parameter.KEYWORD_ONLY:
-		return True
+		if param.kind == inspect.Parameter.KEYWORD_ONLY:
+			return True
 
 def has_var_kw_arg(fn):
+	params = inspect.signature(fn).parameters
 	for name, param in params.items():
-	if param.kind == inspect.Parameter.VAR_KEYWORD:
-		return True
+		if param.kind == inspect.Parameter.VAR_KEYWORD:
+			return True
 
 def has_request_arg(fn):
 	sig = inspect.signature(fn)
-	param = sig.parameters
+	params = sig.parameters
 	found = False
-	for name, param in param.items():
+	for name, param in params.items():
 		if name == 'request':
 			found = True
 			continue
